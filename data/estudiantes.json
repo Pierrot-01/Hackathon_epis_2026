@@ -1,0 +1,202 @@
+[
+  {
+    "id": "EST-001",
+    "nombre": "María Quispe Huamán",
+    "grado": "3ro de secundaria",
+    "asistencia_pct": 95,
+    "notas_promedio": 15.5,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-002",
+    "nombre": "Jhon Huamán Torres",
+    "grado": "2do de secundaria",
+    "asistencia_pct": 60,
+    "notas_promedio": 9.5,
+    "participacion": "baja",
+    "lengua_materna": "quechua",
+    "observaciones": "Múltiples inasistencias consecutivas reportadas."
+  },
+  {
+    "id": "EST-003",
+    "nombre": "Rosa Sulca Martínez",
+    "grado": "1ro de secundaria",
+    "asistencia_pct": 92,
+    "notas_promedio": 14.0,
+    "participacion": "media",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-004",
+    "nombre": "Luis Ccorahua Ramos",
+    "grado": "4to de secundaria",
+    "asistencia_pct": null,
+    "notas_promedio": null,
+    "participacion": null,
+    "lengua_materna": "quechua",
+    "observaciones": "Sin registros disponibles esta semana."
+  },
+  {
+    "id": "EST-005",
+    "nombre": "Ana Flores Condori",
+    "grado": "2do de secundaria",
+    "asistencia_pct": 80,
+    "notas_promedio": 15.0,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-006",
+    "nombre": "Pedro Mamani Apaza",
+    "grado": "3ro de secundaria",
+    "asistencia_pct": 80,
+    "notas_promedio": 11.5,
+    "participacion": "alta",
+    "lengua_materna": "quechua",
+    "observaciones": null
+  },
+  {
+    "id": "EST-007",
+    "nombre": "Lucía Benites Ríos",
+    "grado": "5to de secundaria",
+    "asistencia_pct": 70,
+    "notas_promedio": 15.0,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": "Asistencia en descenso último bimestre."
+  },
+  {
+    "id": "EST-008",
+    "nombre": "Carlos Ttito Soto",
+    "grado": "4to de secundaria",
+    "asistencia_pct": 95,
+    "notas_promedio": 9.0,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-009",
+    "nombre": "Sandra Palomino Cruz",
+    "grado": "1ro de secundaria",
+    "asistencia_pct": 90,
+    "notas_promedio": 13.0,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-010",
+    "nombre": "Jorge Quispe Lazo",
+    "grado": "2do de secundaria",
+    "asistencia_pct": 95,
+    "notas_promedio": 13.0,
+    "participacion": "alta",
+    "lengua_materna": "quechua",
+    "observaciones": null
+  },
+  {
+    "id": "EST-011",
+    "nombre": "Milagros Huanca Vera",
+    "grado": "3ro de secundaria",
+    "asistencia_pct": 78,
+    "notas_promedio": 12.5,
+    "participacion": "baja",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-012",
+    "nombre": "Raúl Ccahuana Puma",
+    "grado": "5to de secundaria",
+    "asistencia_pct": null,
+    "notas_promedio": 14.5,
+    "participacion": null,
+    "lengua_materna": "quechua",
+    "observaciones": "Falta registro de asistencia y participación del mes."
+  },
+  {
+    "id": "EST-013",
+    "nombre": "Sofía Tapia Navarro",
+    "grado": "4to de secundaria",
+    "asistencia_pct": 88,
+    "notas_promedio": 10.5,
+    "participacion": "media",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-014",
+    "nombre": "Erick Vargas Díaz",
+    "grado": "1ro de secundaria",
+    "asistencia_pct": 65,
+    "notas_promedio": 8.0,
+    "participacion": "baja",
+    "lengua_materna": "castellano",
+    "observaciones": "Reportado por tutor de aula por retraso académico severo."
+  },
+  {
+    "id": "EST-015",
+    "nombre": "Fátima Morales Inca",
+    "grado": "2do de secundaria",
+    "asistencia_pct": 91,
+    "notas_promedio": 16.0,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-016",
+    "nombre": "Abel Chávez Quispe",
+    "grado": "3ro de secundaria",
+    "asistencia_pct": 76,
+    "notas_promedio": 11.0,
+    "participacion": "baja",
+    "lengua_materna": "quechua",
+    "observaciones": null
+  },
+  {
+    "id": "EST-017",
+    "nombre": "Daniela Ortega Pinto",
+    "grado": "5to de secundaria",
+    "asistencia_pct": 93,
+    "notas_promedio": 12.0,
+    "participacion": "media",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-018",
+    "nombre": "Renato Lipa Callo",
+    "grado": "4to de secundaria",
+    "asistencia_pct": 72,
+    "notas_promedio": 10.0,
+    "participacion": "baja",
+    "lengua_materna": "quechua",
+    "observaciones": "Ausentismo reportado frecuentemente los lunes."
+  },
+  {
+    "id": "EST-019",
+    "nombre": "Valeria Suca Mendoza",
+    "grado": "1ro de secundaria",
+    "asistencia_pct": 97,
+    "notas_promedio": 18.0,
+    "participacion": "alta",
+    "lengua_materna": "castellano",
+    "observaciones": null
+  },
+  {
+    "id": "EST-020",
+    "nombre": "Brayan Asto Ccopa",
+    "grado": "2do de secundaria",
+    "asistencia_pct": 82,
+    "notas_promedio": null,
+    "participacion": "media",
+    "lengua_materna": "quechua",
+    "observaciones": "Sin calificaciones registradas en el bimestre."
+  }
+]

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reportes - Vanguardia EPIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed-variant": "#173bab", "border-subtle": "#E2E8F0", "surface-muted": "#F1F5F9", "tertiary-fixed": "#ffdbce", "outline-variant": "#c4c5d5", "on-error": "#ffffff", "error-container": "#ffdad6", "tertiary-container": "#872d00", "on-primary-container": "#a8b8ff", "inverse-surface": "#2f3037", "surface-container-low": "#f4f2fc", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb59a", "risk-low": "#22C55E", "on-secondary-container": "#626567", "secondary-fixed-dim": "#c4c7c9", "surface-variant": "#e3e1eb", "on-tertiary-fixed": "#380d00", "risk-high": "#EF4444", "primary-fixed": "#dde1ff", "on-secondary-fixed": "#191c1e", "secondary-container": "#e0e3e5", "surface-container-highest": "#e3e1eb", "primary-container": "#1e40af", "on-surface-variant": "#444653", "on-secondary-fixed-variant": "#444749", "background": "#fbf8ff", "on-background": "#1a1b22", "on-tertiary": "#ffffff", "surface": "#fbf8ff", "surface-bright": "#fbf8ff", "on-secondary": "#ffffff", "risk-medium": "#F59E0B", "primary": "#00288e", "on-tertiary-fixed-variant": "#802a00", "data-missing": "#94A3B8", "inverse-on-surface": "#f1f0fa", "on-surface": "#1a1b22", "surface-container": "#eeedf7", "on-error-container": "#93000a", "primary-fixed-dim": "#b8c4ff", "secondary-fixed": "#e0e3e5", "outline": "#757684", "on-tertiary-container": "#ffa583", "error": "#ba1a1a", "surface-container-high": "#e8e7f1", "inverse-primary": "#b8c4ff", "on-primary-fixed": "#001453", "secondary": "#5c5f61", "tertiary": "#611e00", "surface-tint": "#3755c3", "surface-dim": "#dad9e3", "on-primary": "#ffffff"
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                    spacing: { "margin-edge": "2rem", "container-max": "1280px", "stack-md": "1rem", "stack-lg": "2rem", "gutter": "1.5rem", "stack-sm": "0.5rem" },
+                    fontFamily: { "label-caps": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "status-badge": ["Inter"], "headline-md": ["Inter"] },
+                    fontSize: {
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-sm": ["18px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }],
+                        "status-badge": ["12px", { lineHeight: "12px", fontWeight: "700" }],
+                        "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-surface-muted text-on-surface h-screen flex overflow-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface-container-lowest border-b border-border-subtle">
+<div class="max-w-container-max mx-auto w-full flex justify-between items-center">
+<div class="flex items-center gap-6">
+<div class="font-headline-sm text-headline-sm font-bold text-primary">Vanguardia EPIS</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low transition-colors py-1 px-2 rounded-lg" href="/admin.html">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-low transition-colors py-1 px-2 rounded-lg" href="/monitoreo.html">Monitoreo</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary font-bold py-1 px-2" href="/reportes.html">Reportes</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button onclick="cargarReportes()" class="bg-surface-container-lowest border border-border-subtle text-primary font-body-md text-body-md px-4 py-2 rounded-lg hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" id="refresh-icon">refresh</span>
+Actualizar Datos
+</button>
+</div>
+</div>
+</nav>
+
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-full w-64 bg-surface-container-low fixed left-0 top-16 pt-stack-lg p-stack-md gap-stack-sm z-40 border-r border-border-subtle pb-20">
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps rounded-lg transition-colors" href="/admin.html">
+<span class="material-symbols-outlined">dashboard</span> Inicio
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps rounded-lg transition-colors" href="/monitoreo.html">
+<span class="material-symbols-outlined">person_search</span> Monitoreo
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold font-label-caps text-label-caps rounded-lg" href="/reportes.html">
+<span class="material-symbols-outlined">bar_chart</span> Reportes
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<a href="/" class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span> Cerrar Sesión
+</a>
+</div>
+</aside>
+
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 pt-24 p-gutter overflow-y-auto">
+<div class="max-w-container-max mx-auto space-y-stack-lg pb-12">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Reportes Analíticos</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Distribución y análisis del riesgo académico — datos en tiempo real del motor de clasificación.</p>
+</div>
+</div>
+
+<!-- Info Banner -->
+<div class="bg-surface-container-low border border-border-subtle rounded-xl p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">Datos Procesados por Motor de Reglas (Art. III)</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mt-1">Las clasificaciones son deterministas y auditables. El porcentaje se calcula sobre el total de estudiantes activos en el dataset.</p>
+</div>
+</div>
+
+<!-- Stats resumen -->
+<div id="reporte-stats" class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-24"></div>
+<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-24"></div>
+<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-24"></div>
+<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-24"></div>
+</div>
+
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Distribución por nivel -->
+<div class="md:col-span-12 bg-surface-container-lowest border border-border-subtle rounded-xl p-6">
+<div class="flex justify-between items-end mb-6 border-b border-border-subtle pb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Distribución de Riesgo por Estudiante</h2>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Clasificación determinística según Art. III §3.2.1 — Motor de reglas auditables.</p>
+</div>
+<div class="flex gap-4 font-label-caps text-label-caps text-on-surface-variant">
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-risk-low"></span> Bajo</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-risk-medium"></span> Medio</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-risk-high"></span> Alto</div>
+<div class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-data-missing"></span> Insuf.</div>
+</div>
+</div>
+<div id="tabla-distribucion" class="space-y-3">
+<div class="text-center text-on-surface-variant py-8 text-sm">Cargando datos...</div>
+</div>
+</div>
+
+<!-- Lista de estudiantes por nivel -->
+<div class="md:col-span-12 bg-surface-container-lowest border border-border-subtle rounded-xl p-6">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-4">Detalle Completo — Todos los Estudiantes</h2>
+<div id="lista-todos" class="overflow-x-auto">
+<div class="text-center text-on-surface-variant py-8 text-sm">Cargando...</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<script>
+const API_BASE = 'http://localhost:8000';
+
+const NIVEL_CONFIG = {
+    '🔴': { label: 'ALTO', bg: 'bg-red-100', text: 'text-risk-high', bar: 'bg-risk-high' },
+    '🟡': { label: 'MEDIO', bg: 'bg-amber-100', text: 'text-risk-medium', bar: 'bg-risk-medium' },
+    '🟢': { label: 'BAJO', bg: 'bg-green-100', text: 'text-risk-low', bar: 'bg-risk-low' },
+    '⚪': { label: 'INSUFICIENTE', bg: 'bg-slate-100', text: 'text-data-missing', bar: 'bg-data-missing' },
+};
+
+async function cargarReportes() {
+    const icon = document.getElementById('refresh-icon');
+    if (icon) icon.style.animation = 'spin 1s linear infinite';
+
+    try {
+        const [estudiantesResp, statsResp] = await Promise.all([
+            fetch(`${API_BASE}/api/estudiantes`),
+            fetch(`${API_BASE}/api/stats`),
+        ]);
+
+        if (!estudiantesResp.ok) throw new Error('Error API');
+
+        const estudiantes = await estudiantesResp.json();
+        const stats = await statsResp.json();
+
+        renderReporteStats(stats);
+        renderDistribucionBarras(stats);
+        renderListaTodos(estudiantes);
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById('reporte-stats').innerHTML = `
+            <div class="col-span-4 p-6 text-center text-on-surface-variant">
+                <span class="material-symbols-outlined text-3xl block mb-2">cloud_off</span>
+                <p class="text-sm">No se pudo conectar con el backend.</p>
+                <button onclick="cargarReportes()" class="mt-3 px-4 py-2 bg-primary text-on-primary rounded-lg text-sm font-bold">Reintentar</button>
+            </div>`;
+    } finally {
+        if (icon) icon.style.animation = '';
+    }
+}
+
+function renderReporteStats(stats) {
+    document.getElementById('reporte-stats').innerHTML = `
+        <div class="bg-surface-container-lowest p-5 border border-border-subtle rounded-xl fade-in">
+            <p class="text-[10px] uppercase font-bold text-on-surface-variant mb-1">Total</p>
+            <p class="text-3xl font-extrabold text-on-surface">${stats.total}</p>
+        </div>
+        <div class="bg-surface-container-lowest p-5 border-l-4 border-l-risk-high border border-border-subtle rounded-xl fade-in">
+            <p class="text-[10px] uppercase font-bold text-risk-high mb-1">Alto</p>
+            <p class="text-3xl font-extrabold text-risk-high">${stats.alto} <span class="text-sm font-normal">(${stats.pct_alto}%)</span></p>
+        </div>
+        <div class="bg-surface-container-lowest p-5 border-l-4 border-l-risk-medium border border-border-subtle rounded-xl fade-in">
+            <p class="text-[10px] uppercase font-bold text-risk-medium mb-1">Medio</p>
+            <p class="text-3xl font-extrabold text-risk-medium">${stats.medio} <span class="text-sm font-normal">(${stats.pct_medio}%)</span></p>
+        </div>
+        <div class="bg-surface-container-lowest p-5 border-l-4 border-l-risk-low border border-border-subtle rounded-xl fade-in">
+            <p class="text-[10px] uppercase font-bold text-risk-low mb-1">Bajo</p>
+            <p class="text-3xl font-extrabold text-risk-low">${stats.bajo} <span class="text-sm font-normal">(${stats.pct_bajo}%)</span></p>
+        </div>
+    `;
+}
+
+function renderDistribucionBarras(stats) {
+    const total = stats.total || 1;
+    const niveles = [
+        { label: '🟢 Bajo', count: stats.bajo, pct: stats.pct_bajo, cfg: NIVEL_CONFIG['🟢'] },
+        { label: '🟡 Medio', count: stats.medio, pct: stats.pct_medio, cfg: NIVEL_CONFIG['🟡'] },
+        { label: '🔴 Alto', count: stats.alto, pct: stats.pct_alto, cfg: NIVEL_CONFIG['🔴'] },
+        { label: '⚪ Insuf.', count: stats.insuficiente, pct: Math.round(stats.insuficiente/total*100), cfg: NIVEL_CONFIG['⚪'] },
+    ];
+
+    document.getElementById('tabla-distribucion').innerHTML = niveles.map(n => `
+        <div class="flex items-center gap-4 fade-in">
+            <div class="w-28 font-body-md text-sm font-bold text-on-surface">${n.label}</div>
+            <div class="flex-1 h-7 bg-surface-muted rounded overflow-hidden flex">
+                <div class="${n.cfg.bar} h-full rounded transition-all duration-700" style="width: ${Math.max(n.pct, 1)}%" title="${n.pct}% — ${n.count} estudiantes"></div>
+            </div>
+            <div class="w-16 text-right text-sm font-bold ${n.cfg.text}">${n.count} (${n.pct}%)</div>
+        </div>
+    `).join('');
+}
+
+function renderListaTodos(estudiantes) {
+    const ordenados = [...estudiantes].sort((a, b) => {
+        const orden = { '🔴': 0, '🟡': 1, '⚪': 2, '🟢': 3 };
+        return (orden[a.nivel_riesgo] ?? 4) - (orden[b.nivel_riesgo] ?? 4);
+    });
+
+    document.getElementById('lista-todos').innerHTML = `
+        <table class="w-full text-left">
+            <thead class="bg-surface-muted">
+                <tr>
+                    <th class="px-4 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant">Estudiante</th>
+                    <th class="px-4 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant text-center">Riesgo</th>
+                    <th class="px-4 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant hidden md:table-cell">Motivo Principal</th>
+                    <th class="px-4 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant text-center hidden md:table-cell">Origen IA</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-border-subtle">
+                ${ordenados.map(e => {
+                    const cfg = NIVEL_CONFIG[e.nivel_riesgo] || NIVEL_CONFIG['⚪'];
+                    const origenBadge = e.origen_ia === 'vivo'
+                        ? '<span class="px-2 py-0.5 bg-green-100 text-risk-low rounded text-[9px] font-bold">EN VIVO</span>'
+                        : e.origen_ia === 'fallback'
+                        ? '<span class="px-2 py-0.5 bg-amber-100 text-risk-medium rounded text-[9px] font-bold">RESPALDO</span>'
+                        : e.origen_ia === 'no_aplica'
+                        ? '<span class="px-2 py-0.5 bg-slate-100 text-data-missing rounded text-[9px] font-bold">N/A</span>'
+                        : '<span class="px-2 py-0.5 bg-red-100 text-risk-high rounded text-[9px] font-bold">ERROR</span>';
+                    return `
+                    <tr class="hover:bg-surface-muted/50 transition-colors">
+                        <td class="px-4 py-3">
+                            <p class="font-bold text-sm text-on-surface">${e.nombre}</p>
+                            <p class="text-[10px] text-on-surface-variant">${e.id} • ${e.grado}</p>
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 ${cfg.bg} ${cfg.text} rounded-full text-[9px] font-bold">
+                                ${e.nivel_riesgo} ${cfg.label}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-xs text-on-surface-variant italic hidden md:table-cell">${(e.motivos[0] || '—').replace(/🟢|🟡|🔴|⚪/g,'').trim()}</td>
+                        <td class="px-4 py-3 text-center hidden md:table-cell">${origenBadge}</td>
+                    </tr>`;
+                }).join('')}
+            </tbody>
+        </table>`;
+}
+
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .skeleton { animation: shimmer 1.5s ease-in-out infinite; background: linear-gradient(90deg, #e8e7f1 25%, #f4f2fc 50%, #e8e7f1 75%); background-size: 200% 100%; } @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }';
+document.head.appendChild(style);
+
+document.addEventListener('DOMContentLoaded', cargarReportes);
+</script>
+</body></html>

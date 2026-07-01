@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestión de Estudiante - Vanguardia EPIS</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#173bab",
+                    "border-subtle": "#E2E8F0",
+                    "surface-muted": "#F1F5F9",
+                    "tertiary-fixed": "#ffdbce",
+                    "outline-variant": "#c4c5d5",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#872d00",
+                    "on-primary-container": "#a8b8ff",
+                    "inverse-surface": "#2f3037",
+                    "surface-container-low": "#f4f2fc",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb59a",
+                    "risk-low": "#22C55E",
+                    "on-secondary-container": "#626567",
+                    "secondary-fixed-dim": "#c4c7c9",
+                    "surface-variant": "#e3e1eb",
+                    "on-tertiary-fixed": "#380d00",
+                    "risk-high": "#EF4444",
+                    "primary-fixed": "#dde1ff",
+                    "on-secondary-fixed": "#191c1e",
+                    "secondary-container": "#e0e3e5",
+                    "surface-container-highest": "#e3e1eb",
+                    "primary-container": "#1e40af",
+                    "on-surface-variant": "#444653",
+                    "on-secondary-fixed-variant": "#444749",
+                    "background": "#fbf8ff",
+                    "on-background": "#1a1b22",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fbf8ff",
+                    "surface-bright": "#fbf8ff",
+                    "on-secondary": "#ffffff",
+                    "risk-medium": "#F59E0B",
+                    "primary": "#00288e",
+                    "on-tertiary-fixed-variant": "#802a00",
+                    "data-missing": "#94A3B8",
+                    "inverse-on-surface": "#f1f0fa",
+                    "on-surface": "#1a1b22",
+                    "surface-container": "#eeedf7",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "secondary-fixed": "#e0e3e5",
+                    "outline": "#757684",
+                    "on-tertiary-container": "#ffa583",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e8e7f1",
+                    "inverse-primary": "#b8c4ff",
+                    "on-primary-fixed": "#001453",
+                    "secondary": "#5c5f61",
+                    "tertiary": "#611e00",
+                    "surface-tint": "#3755c3",
+                    "surface-dim": "#dad9e3",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-edge": "2rem",
+                    "container-max": "1280px",
+                    "stack-md": "1rem",
+                    "stack-lg": "2rem",
+                    "gutter": "1.5rem",
+                    "stack-sm": "0.5rem"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "headline-sm": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "headline-lg-mobile": ["Inter", "sans-serif"],
+                    "status-badge": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "headline-sm": ["18px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                    "status-badge": ["12px", { "lineHeight": "12px", "fontWeight": "700" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c4c5d5; }
+    </style>
+</head>
+<body class="bg-surface-muted text-on-surface font-body-md min-h-screen flex flex-col lg:flex-row antialiased">
+<!-- Mobile TopNavBar (Visible on small screens) -->
+<nav class="lg:hidden fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 max-w-container-max mx-auto bg-surface-container-lowest border-b border-border-subtle no-shadows">
+<div class="flex items-center gap-3">
+<button class="text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Vanguardia EPIS</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">search</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-border-subtle">
+<img alt="Usuario Administrador" class="w-full h-full object-cover" data-alt="A small, professional portrait photograph of an educational administrator wearing a light blue button-down shirt against a neutral studio background. Soft, even lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxV4I0MHTSAJuLQ6_pRcVvKl0oarJY-SVttB4QI7bib7YNsHCVfg7a0Cq-8ws70XwDnxqKiVq5xnMrl0a8CXYPsyR2vSUIfMxn5SU1KNZkZBKt_9mfPWFZ0E0eRoRPLXP4o_OipqYrm5tmcwUfBUKPc8bl1lRDgYVq55R1D1HyrgvDM-3GeDVYQsHbZh52Lz6a-nm-u5Bww89GmYJZbm74ge1cZXVNqgbzK_cCIi8zyCHf2u_SASA4Cc8I2E0lM1o7Ae8nqjcphSg"/>
+</div>
+</div>
+</nav>
+<!-- Desktop SideNavBar Shell (Immutable Content from JSON, Applied Styles) -->
+<aside class="hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 p-stack-md gap-stack-sm bg-surface-container-low border-r border-border-subtle z-40 overflow-y-auto">
+<!-- Header -->
+<div class="flex flex-col gap-1 mb-stack-md px-2 pt-2">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed bg-surface-container-highest">
+<img alt="Usuario Administrador" class="w-full h-full object-cover" data-alt="A small, professional portrait photograph of an educational administrator wearing a light blue button-down shirt against a neutral studio background. Soft, even lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkTSel9i6pj7HuCGeJf64xU7m7ODbkmetiICMzmV_fF7O0eC0LBODF0M29Q9RklN3KOyhtRYXy89lMh84ZDlD3gIgoaq-etF-FTUW_whdJFxCMBxSJ0TzpvUiJDLgSPTBXslkZLOQXadEPsv5LuBUbCcM21KXV0K5esPIk8SiC2rpfSwJVKXZq5rv30r3L7w4OAmSSkSojvQcX2jroMM8yvCOFW0vHFIp45e12miZTyy1QNl6wkZndLeIgcCRdAS5skra-GcqVFAk"/>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Vanguardia EPIS</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Detección de Riesgo</p>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-body-md py-2 px-4 rounded-xl hover:opacity-90 transition-opacity mb-stack-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+            Nueva Consulta
+        </button>
+<!-- Navigation Tabs -->
+<nav class="flex-1 flex flex-col gap-1">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-body-md font-body-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+                Inicio
+            </a>
+<!-- Active Tab (Semantic Mapping: 'Estudiantes' fits 'managing a student record') -->
+<a class="flex items-center gap-3 px-4 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg scale-95 transition-transform text-body-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                Estudiantes
+            </a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-body-md font-body-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">warning</span>
+                Alertas
+            </a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-body-md font-body-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">history</span>
+                Historial
+            </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto flex flex-col gap-1 border-t border-border-subtle pt-stack-sm">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Ayuda
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Cerrar Sesión
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col lg:ml-64 pt-16 lg:pt-0 min-h-screen">
+<!-- Page Header Context -->
+<header class="px-gutter py-stack-md lg:py-stack-lg border-b border-border-subtle bg-surface-container-lowest sticky top-0 lg:top-0 z-30">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row md:items-center justify-between gap-stack-md">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md mb-1">
+<a class="hover:text-primary transition-colors" href="#">Estudiantes</a>
+<span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span>
+<span class="text-on-surface">Gestión de Registro</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+                        Ficha del Estudiante
+                    </h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-xl border border-border-subtle text-on-surface bg-surface-container-lowest hover:bg-surface-muted transition-colors font-body-md font-semibold" type="button">
+                        Cancelar
+                    </button>
+<button class="px-4 py-2 rounded-xl border border-transparent bg-primary text-on-primary hover:opacity-90 transition-opacity font-body-md font-semibold flex items-center gap-2 shadow-sm" type="button">
+<span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                        Guardar Estudiante
+                    </button>
+</div>
+</div>
+</header>
+<!-- Form Area -->
+<div class="flex-1 p-gutter lg:p-margin-edge max-w-container-max mx-auto w-full">
+<!-- Context Banner -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-4 mb-stack-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">info</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Entorno de Datos Sintéticos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Este formulario gestiona el registro de la cohorte actual de evaluación, limitada a un set sintetizado de 15-20 estudiantes para análisis predictivo de riesgo. Los cambios impactarán el modelo en tiempo real.
+                    </p>
+</div>
+</div>
+<!-- Bento Grid Layout for Form Sections -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+<!-- Col 1: Personal Info & Avatar -->
+<div class="lg:col-span-8 flex flex-col gap-stack-lg">
+<!-- Section: Información Personal -->
+<section class="bg-surface-container-lowest border border-border-subtle rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-6 pb-4 border-b border-surface-muted">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">person</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Información Personal</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+<!-- Nombres -->
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="nombres">Nombres y Apellidos Completos</label>
+<input class="font-body-md text-body-md bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="nombres" name="nombres" placeholder="Ej. Ana María Rojas Silva" type="text"/>
+</div>
+<!-- DNI/ID -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="dni">Documento de Identidad (DNI)</label>
+<input class="font-body-md text-body-md bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="dni" maxlength="8" name="dni" placeholder="8 dígitos" type="text"/>
+</div>
+<!-- Grado -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="grado">Grado y Sección</label>
+<select class="font-body-md text-body-md bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none cursor-pointer" id="grado" name="grado">
+<option disabled="" selected="" value="">Seleccione un grado...</option>
+<option value="1A">1ro Secundaria - Secc A</option>
+<option value="1B">1ro Secundaria - Secc B</option>
+<option value="2A">2do Secundaria - Secc A</option>
+<option value="3A">3ro Secundaria - Secc A</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Section: Datos Académicos (Quantitative) -->
+<section class="bg-surface-container-lowest border border-border-subtle rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-6 pb-4 border-b border-surface-muted">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">monitoring</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Datos Académicos Base</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Asistencia -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant flex items-center justify-between" for="asistencia">
+                                    Asistencia Mensual
+                                    <span class="text-risk-low font-normal">% Asistencia</span>
+</label>
+<div class="relative">
+<input class="w-full font-body-md text-body-md bg-surface-container-lowest border border-outline-variant rounded-lg pl-4 pr-10 py-2.5 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="asistencia" max="100" min="0" name="asistencia" placeholder="0 - 100" type="number"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-on-surface-variant font-body-md">
+                                        %
+                                    </div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1 leading-tight">Valor menor a 85% activa flag de riesgo moderado.</p>
+</div>
+<!-- Promedio -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant flex items-center justify-between" for="promedio">
+                                    Promedio Acumulado
+                                    <span class="text-on-surface-variant font-normal">Escala Vigente</span>
+</label>
+<input class="font-body-md text-body-md bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all" id="promedio" max="20" min="0" name="promedio" placeholder="Ej. 14.5" step="0.1" type="number"/>
+</div>
+</div>
+</section>
+</div>
+<!-- Col 2: Qualitative & Context (Sidebar format within form) -->
+<div class="lg:col-span-4 flex flex-col gap-stack-lg">
+<!-- Section: Indicadores Cualitativos -->
+<section class="bg-surface-container-lowest border border-border-subtle rounded-xl p-6 shadow-sm h-full flex flex-col">
+<div class="flex items-center gap-3 mb-6 pb-4 border-b border-surface-muted">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">psychology</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Indicador Cualitativo</h3>
+</div>
+<div class="flex flex-col gap-4 flex-1">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Nivel de Participación en Aula</label>
+<!-- Custom Radio Group for Qualitative Data -->
+<div class="space-y-3 mt-1">
+<label class="flex items-start gap-3 p-3 rounded-lg border border-outline-variant hover:border-primary cursor-pointer transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary-fixed/20">
+<input class="mt-1 text-primary focus:ring-primary h-4 w-4 border-outline-variant" name="participacion" type="radio" value="alta"/>
+<div>
+<div class="font-body-md text-on-surface font-semibold">Alta Participación</div>
+<div class="text-[12px] text-on-surface-variant mt-0.5">Interviene frecuentemente, muestra iniciativa y liderazgo.</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3 rounded-lg border border-outline-variant hover:border-primary cursor-pointer transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary-fixed/20">
+<input checked="" class="mt-1 text-primary focus:ring-primary h-4 w-4 border-outline-variant" name="participacion" type="radio" value="media"/>
+<div>
+<div class="font-body-md text-on-surface font-semibold">Participación Media</div>
+<div class="text-[12px] text-on-surface-variant mt-0.5">Cumple con asignaciones, interviene si se le solicita.</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3 rounded-lg border border-outline-variant hover:border-risk-high cursor-pointer transition-colors has-[:checked]:border-risk-high has-[:checked]:bg-error-container/20">
+<input class="mt-1 text-risk-high focus:ring-risk-high h-4 w-4 border-outline-variant" name="participacion" type="radio" value="baja"/>
+<div>
+<div class="font-body-md text-on-surface font-semibold">Participación Baja / Nula</div>
+<div class="text-[12px] text-on-surface-variant mt-0.5">Aislamiento observable, evita contacto visual o tareas grupales.</div>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-auto pt-6">
+<div class="bg-surface-muted p-4 rounded-lg border border-border-subtle border-dashed">
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">lock</span>
+<span class="font-label-caps text-label-caps">Auditoría IA</span>
+</div>
+<p class="text-[12px] leading-tight text-on-surface-variant">
+                                        El modelo determinístico cruzará esta evaluación cualitativa con el % de asistencia para generar el índice de riesgo primario.
+                                    </p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</form>
+</div>
+</main>
+<script>
+        // Micro-interaction for form highlighting (Visual Feedback without changing data)
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('focus', function() {
+                const parentRow = this.closest('section');
+                if(parentRow) {
+                    parentRow.classList.add('border-primary', 'shadow-md');
+                    parentRow.classList.remove('border-border-subtle');
+                }
+            });
+            element.addEventListener('blur', function() {
+                const parentRow = this.closest('section');
+                if(parentRow) {
+                    parentRow.classList.remove('border-primary', 'shadow-md');
+                    parentRow.classList.add('border-border-subtle');
+                }
+            });
+        });
+    </script>
+</body></html>

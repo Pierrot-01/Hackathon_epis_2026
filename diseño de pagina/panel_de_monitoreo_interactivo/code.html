@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vanguardia EPIS - Panel de Tutoría</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#802a00",
+                    "on-primary-fixed-variant": "#173bab",
+                    "on-tertiary-container": "#ffa583",
+                    "secondary-fixed": "#e0e3e5",
+                    "on-primary-container": "#a8b8ff",
+                    "border-subtle": "#E2E8F0",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#380d00",
+                    "outline-variant": "#c4c5d5",
+                    "primary-fixed": "#dde1ff",
+                    "on-surface-variant": "#444653",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#001453",
+                    "data-missing": "#94A3B8",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "surface-container": "#eeedf7",
+                    "risk-high": "#EF4444",
+                    "tertiary-fixed": "#ffdbce",
+                    "tertiary-container": "#872d00",
+                    "secondary-container": "#e0e3e5",
+                    "on-secondary-container": "#626567",
+                    "surface-variant": "#e3e1eb",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#dad9e3",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "surface-container-low": "#f4f2fc",
+                    "primary": "#00288e",
+                    "inverse-primary": "#b8c4ff",
+                    "on-secondary-fixed": "#191c1e",
+                    "primary-container": "#1e40af",
+                    "on-secondary-fixed-variant": "#444749",
+                    "surface-container-high": "#e8e7f1",
+                    "outline": "#757684",
+                    "tertiary": "#611e00",
+                    "risk-medium": "#F59E0B",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#3755c3",
+                    "on-primary": "#ffffff",
+                    "background": "#fbf8ff",
+                    "secondary": "#5c5f61",
+                    "on-surface": "#1a1b22",
+                    "on-background": "#1a1b22",
+                    "inverse-on-surface": "#f1f0fa",
+                    "surface": "#fbf8ff",
+                    "inverse-surface": "#2f3037",
+                    "surface-bright": "#fbf8ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-muted": "#F1F5F9",
+                    "secondary-fixed-dim": "#c4c7c9",
+                    "risk-low": "#22C55E",
+                    "tertiary-fixed-dim": "#ffb59a",
+                    "surface-container-highest": "#e3e1eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "gutter": "1.5rem",
+                    "margin-edge": "2rem",
+                    "stack-sm": "0.5rem",
+                    "stack-md": "1rem",
+                    "stack-lg": "2rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "status-badge": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "status-badge": ["12px", {"lineHeight": "12px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low p-stack-md gap-stack-sm border-r border-border-subtle z-50">
+<div class="mb-stack-lg px-2">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary uppercase tracking-tight">Vanguardia EPIS</h1>
+<p class="font-label-caps text-[10px] text-on-surface-variant">Gestión de Riesgo Académico</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary rounded-lg transition-colors group active:bg-surface-container-highest" href="/inicio.html">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Inicio</span>
+</a>
+<a class="flex items-center gap-3 p-3 bg-primary-container text-on-primary-container font-bold rounded-lg group hover:bg-primary hover:text-on-primary transition-colors active:scale-[0.98]" href="/monitoreo.html">
+<span class="material-symbols-outlined group-hover:text-on-primary transition-colors" data-icon="person_search" style="font-variation-settings: 'FILL' 1;">person_search</span>
+<span class="font-label-caps text-label-caps">Monitoreo</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary rounded-lg transition-colors group active:bg-surface-container-highest" href="/nueva-consulta.html">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="add_circle">add_circle</span>
+<span class="font-label-caps text-label-caps">Nueva Consulta</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary rounded-lg transition-colors group active:bg-surface-container-highest" href="/alertas.html">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="notification_important">notification_important</span>
+<span class="font-label-caps text-label-caps">Alertas</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary rounded-lg transition-colors group active:bg-surface-container-highest" href="/historial.html">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">Historial</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-md border-t border-border-subtle flex flex-col gap-1">
+<button class="w-full text-left flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary rounded-lg transition-colors active:bg-surface-container-highest group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="help">help</span>
+<span class="font-label-caps text-label-caps">Ayuda</span>
+</button>
+<button class="w-full text-left flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-error rounded-lg transition-colors active:bg-surface-container-highest group">
+<span class="material-symbols-outlined group-hover:text-error transition-colors" data-icon="logout">logout</span>
+<span class="font-label-caps text-label-caps">Cerrar Sesión</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+<!-- Header -->
+<header class="sticky top-0 w-full z-40 bg-surface-container-lowest flex justify-between items-center px-gutter h-16 border-b border-border-subtle">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 hover:bg-surface-container-low active:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Panel de Monitoreo de Riesgo</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-bold text-sm transition-all hover:shadow-lg hover:bg-primary/90 active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
+                    Sincronizar Datos
+                </button>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-lg transition-colors relative active:bg-surface-container-high">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="w-px h-6 bg-border-subtle mx-1"></div>
+<div class="flex items-center gap-2 pl-2">
+<button class="w-8 h-8 rounded-full bg-surface-container-highest hover:bg-surface-container-high flex items-center justify-center border border-border-subtle transition-colors active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<div class="p-gutter max-w-container-max mx-auto w-full space-y-stack-lg">
+<!-- Summary Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-stack-md">
+<div class="bg-surface-container-lowest p-5 border border-border-subtle rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-default">
+<p class="text-on-surface-variant font-label-caps text-[11px] mb-2 uppercase tracking-wider">Total Estudiantes</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-4xl text-on-surface font-extrabold leading-none">428</span>
+<span class="bg-surface-container-high px-2 py-1 rounded text-[10px] text-on-surface-variant font-bold">2024-I</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 border border-border-subtle border-l-4 border-l-risk-high rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-default">
+<p class="text-risk-high font-label-caps text-[11px] mb-2 uppercase tracking-wider">Riesgo Alto</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-4xl text-risk-high font-extrabold leading-none">12</span>
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[10px] font-bold">Crítico</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 border border-border-subtle border-l-4 border-l-risk-medium rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-default">
+<p class="text-risk-medium font-label-caps text-[11px] mb-2 uppercase tracking-wider">Riesgo Medio</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-4xl text-risk-medium font-extrabold leading-none">45</span>
+<span class="bg-amber-100 text-risk-medium px-2 py-1 rounded text-[10px] font-bold">Atención</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 border border-border-subtle border-l-4 border-l-data-missing rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-default">
+<p class="text-data-missing font-label-caps text-[11px] mb-2 uppercase tracking-wider">Dato Insuficiente</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-lg text-4xl text-data-missing font-extrabold leading-none">8</span>
+<span class="bg-slate-100 text-data-missing px-2 py-1 rounded text-[10px] font-bold">Pendiente</span>
+</div>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- Students Table Container (Primary Focus) -->
+<div class="col-span-12 xl:col-span-8 bg-surface-container-lowest border border-border-subtle rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="p-stack-md border-b border-border-subtle flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm">Listado de Estudiantes</h3>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px] font-bold text-on-surface-variant">ART. III REF</span>
+</div>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all hover:bg-surface-container-lowest" placeholder="Filtrar por nombre o ID..." type="text"/>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant uppercase">Estudiante</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-center">Riesgo (Art. III)</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant uppercase hidden md:table-cell">Última Alerta</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr class="hover:bg-surface-muted cursor-pointer transition-colors group active:bg-surface-variant">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold text-xs flex-shrink-0">JH</div>
+<div>
+<p class="font-bold text-on-surface">Jhon Huamán Quispe</p>
+<p class="text-[10px] text-on-surface-variant">ID: 2024-7712 • 3° Sec</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 text-risk-high rounded-full font-status-badge text-[10px] font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-high"></span> ALTO
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs hidden md:table-cell italic">Inasistencia crítica reportada hoy</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline hover:text-primary-container active:text-primary transition-colors">Gestionar</button>
+</td>
+</tr>
+<tr class="bg-primary/5 hover:bg-primary/10 cursor-pointer transition-colors group border-l-4 border-l-primary active:bg-primary/15">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-xs flex-shrink-0">MQ</div>
+<div>
+<p class="font-bold text-on-surface">María Quispe Huamán</p>
+<p class="text-[10px] text-on-surface-variant">ID: 2024-8842 • 4° Sec</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-risk-medium rounded-full font-status-badge text-[10px] font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-medium"></span> MEDIO
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs hidden md:table-cell italic">Bajo rendimiento en Matemática</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:text-primary-container active:text-primary transition-colors">Gestionando</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-muted cursor-pointer transition-colors group active:bg-surface-variant">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-risk-low font-bold text-xs flex-shrink-0">RS</div>
+<div>
+<p class="font-bold text-on-surface">Rosa Sulca Martínez</p>
+<p class="text-[10px] text-on-surface-variant">ID: 2024-9901 • 2° Sec</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-risk-low rounded-full font-status-badge text-[10px] font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-low"></span> BAJO
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs hidden md:table-cell italic">Mejora sostenida en notas</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline hover:text-primary-container active:text-primary transition-colors">Ver Detalle</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-muted cursor-pointer transition-colors group active:bg-surface-variant">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-data-missing font-bold text-xs flex-shrink-0">LP</div>
+<div>
+<p class="font-bold text-on-surface">Luis Paredes</p>
+<p class="text-[10px] text-on-surface-variant">ID: 2024-1205 • 5° Sec</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-data-missing rounded-full font-status-badge text-[10px] font-bold uppercase">
+                                            DATO INSUFICIENTE
+                                        </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs hidden md:table-cell italic">Faltan registros de asistencia semana 12</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline hover:text-primary-container active:text-primary transition-colors">Actualizar</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Side Panel: Trazabilidad y IA Perspective -->
+<aside class="col-span-12 xl:col-span-4 space-y-gutter">
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl overflow-hidden shadow-lg sticky top-20">
+<!-- Detail Header -->
+<div class="p-6 bg-surface-container-low border-b border-border-subtle flex justify-between items-start">
+<div class="flex gap-4">
+<div class="w-14 h-14 rounded-xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-2xl shadow-sm">MQ</div>
+<div>
+<h4 class="font-bold text-on-surface text-lg leading-tight">María Quispe H.</h4>
+<p class="text-[11px] text-on-surface-variant uppercase font-semibold">Tutoría Asignada • 4° Secundaria</p>
+<span class="mt-2 inline-flex items-center gap-1 px-2.5 py-0.5 bg-amber-50 text-risk-medium rounded-md font-status-badge text-[9px] border border-risk-medium/30 uppercase tracking-wide">Riesgo Medio (Art. III)</span>
+</div>
+</div>
+<button class="p-2 hover:bg-surface-variant active:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors" data-icon="close">close</span>
+</button>
+</div>
+<!-- Detail Body -->
+<div class="p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-280px)] no-scrollbar">
+<!-- Section: Trazabilidad Determinista (Art. II) -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h5 class="font-label-caps text-label-caps text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] fill-current" data-icon="fact_check">fact_check</span>
+                                        Trazabilidad Determinista
+                                    </h5>
+<span class="text-[9px] text-on-surface-variant uppercase font-bold">Art. II Registro</span>
+</div>
+<div class="space-y-3">
+<div class="p-4 bg-surface-container-low rounded-xl border border-border-subtle hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[11px] font-bold text-on-surface">Asistencia Mensual</span>
+<span class="text-xs font-extrabold text-risk-medium">82%</span>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-risk-medium h-full" style="width: 82%"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2 italic">Umbral crítico: 70%. Alerta por inasistencias los lunes.</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl border border-border-subtle hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[11px] font-bold text-on-surface">Promedio Académico</span>
+<span class="text-xs font-extrabold text-risk-medium">11.5</span>
+</div>
+<div class="w-full bg-outline-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-risk-medium h-full" style="width: 57.5%"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2 italic">Descenso de 2.5 puntos en el último bimestre.</p>
+</div>
+</div>
+</section>
+<!-- Section: Perspectiva IA (Art. II) -->
+<section class="bg-primary/5 p-5 rounded-2xl border border-primary/20 space-y-4 hover:border-primary/40 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-extrabold text-[11px] uppercase tracking-widest">Perspectiva IA</span>
+</div>
+<div class="px-2 py-0.5 rounded-full bg-primary/10 text-[8px] text-primary font-bold italic uppercase">Motor Gen-V2</div>
+</div>
+<div class="space-y-4">
+<div>
+<p class="text-[10px] font-bold text-primary mb-1 uppercase">Explicación Generativa</p>
+<p class="text-xs text-on-surface leading-relaxed font-medium">
+                                            Se identifica un patrón de <span class="text-risk-high font-bold underline">desconexión progresiva</span>. El modelo correlaciona la baja participación en clase con el ausentismo recurrente a inicio de semana, sugiriendo posibles factores de entorno familiar o carga laboral temprana.
+                                        </p>
+</div>
+<div class="p-3 bg-white/80 rounded-xl border border-primary/10 shadow-sm hover:shadow-md transition-shadow">
+<p class="text-[10px] font-bold text-primary mb-1 uppercase">Recomendación Sugerida</p>
+<p class="text-xs text-on-surface leading-relaxed italic">
+                                            "Priorizar una entrevista de orientación antes del cierre de bimestre. Se sugiere aplicar técnica de refuerzo positivo en áreas donde aún mantiene notas aprobatorias."
+                                        </p>
+</div>
+</div>
+</section>
+<!-- Footer Actions -->
+<div class="flex gap-3 pt-2">
+<button class="flex-1 py-3 bg-primary text-on-primary rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 active:scale-95 transition-all">
+                                    Registrar Intervención
+                                </button>
+<button class="p-3 border border-outline-variant text-on-surface-variant rounded-xl hover:bg-surface-container-low hover:text-on-surface active:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto py-8 px-gutter border-t border-border-subtle bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start gap-2">
+<p class="text-xs text-on-surface-variant font-medium">© 2024 Vanguardia EPIS - Gestión Inteligente Escolar</p>
+<p class="text-[10px] text-on-surface-variant/70 italic uppercase tracking-tighter">Conforme a lineamientos de interoperabilidad y seguridad de datos.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-xs font-semibold text-on-surface-variant hover:text-primary active:text-primary-container transition-colors underline decoration-border-subtle hover:decoration-primary underline-offset-4" href="#">Privacidad</a>
+<a class="text-xs font-semibold text-on-surface-variant hover:text-primary active:text-primary-container transition-colors underline decoration-border-subtle hover:decoration-primary underline-offset-4" href="#">Marco Legal (Art. II/III)</a>
+<a class="text-xs font-semibold text-on-surface-variant hover:text-primary active:text-primary-container transition-colors underline decoration-border-subtle hover:decoration-primary underline-offset-4" href="#">Soporte Técnico</a>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Mobile Bottom Navigation -->
+<div class="lg:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-border-subtle flex justify-around p-3 z-50">
+<a class="p-2 text-on-surface-variant hover:text-primary flex flex-col items-center transition-colors active:scale-95" href="/inicio.html">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[9px] font-bold">Inicio</span>
+</a>
+<a class="p-2 text-primary flex flex-col items-center hover:text-primary-container transition-colors active:scale-95" href="/monitoreo.html">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="text-[9px] font-bold">Monitoreo</span>
+</a>
+<a class="p-2 text-on-surface-variant hover:text-primary flex flex-col items-center transition-colors active:scale-95" href="/nueva-consulta.html">
+<span class="material-symbols-outlined" data-icon="add_box">add_box</span>
+<span class="text-[9px] font-bold">Consulta</span>
+</a>
+<a class="p-2 text-on-surface-variant hover:text-primary flex flex-col items-center transition-colors active:scale-95" href="/alertas.html">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="text-[9px] font-bold">Alertas</span>
+</a>
+</div>
+<script>
+    // Simple row selection behavior for demo purposes
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+            tableRows.forEach(r => {
+                r.classList.remove('bg-primary/5', 'border-l-4', 'border-l-primary');
+            });
+            row.classList.add('bg-primary/5', 'border-l-4', 'border-l-primary');
+        });
+    });
+
+    // Handle sync button visual feedback
+    const syncBtn = document.querySelector('header button.bg-primary');
+    if (syncBtn) {
+        syncBtn.addEventListener('click', () => {
+            const icon = syncBtn.querySelector('span');
+            icon.classList.add('animate-spin');
+            setTimeout(() => icon.classList.remove('animate-spin'), 1500);
+        });
+    }
+</script>
+</body></html>
