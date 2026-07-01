@@ -1,5 +1,7 @@
 # Grupo Crewmate- 🏫 Vanguardia EPIS — Detección Temprana de Riesgo Escolar
-
+#NIlupu Palomino Orlando Paul
+#Sulca Mendoza Jhony Alberto
+#Leon Cardenas, Jose Helder
 Sistema de alerta temprana y recomendación pedagógica personalizada para docentes y tutores de instituciones rurales y urbano-marginales de Perú, diseñado para operar bajo condiciones de conectividad limitada.
 
 ---
