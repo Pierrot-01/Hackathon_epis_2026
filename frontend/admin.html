@@ -3,8 +3,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Vanguardia EPIS - Panel Administrativo</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
         tailwind.config = {
@@ -111,7 +114,7 @@
             display: inline-block;
             vertical-align: middle;
         }
-        .chart-bar { transition: transform 0.3s ease; }
+        .chart-bar { transition: height 0.5s ease-in-out, brightness 0.2s ease; }
         .glass-panel {
             backdrop-filter: blur(12px);
             background: rgba(255, 255, 255, 0.9);
@@ -126,22 +129,62 @@
 <!-- TopNavBar -->
 <header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface-container-lowest border-b border-border-subtle">
 <div class="flex items-center gap-stack-md">
+<button onclick="toggleMobileSidebar()" class="lg:hidden text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <span class="font-headline-sm text-headline-sm font-bold text-primary">Vanguardia EPIS</span>
 <nav class="hidden md:flex gap-4 ml-8">
 <a class="font-body-md text-body-md text-primary border-b-2 border-primary font-bold px-1 py-4" href="/admin.html">Dashboard</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors px-1 py-4" href="/monitoreo.html">Monitoreo</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors px-1 py-4" href="/reportes.html">Reportes</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors px-1 py-4" href="/estudiantes.html">Estudiantes</a>
 </nav>
 </div>
 <div class="flex items-center gap-stack-sm">
-<button onclick="cargarDatos()" class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-caps text-label-caps hover:opacity-90 transition-opacity" id="btn-update-data">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-caps text-label-caps hover:opacity-90 transition-opacity group" id="btn-update-data" onclick="cargarDatosAdmin(true)">
 <span class="material-symbols-outlined text-sm" id="refresh-icon">refresh</span>
-<span>Actualizar Datos</span>
+<span id="btn-text">Actualizar Datos</span>
 </button>
 </div>
 </header>
 
-<!-- SideNavBar -->
+<!-- Mobile SideNavBar Drawer -->
+<div id="mobile-sidebar" class="fixed inset-0 z-[60] hidden lg:hidden">
+    <div class="fixed inset-0 bg-black/40" onclick="toggleMobileSidebar()"></div>
+    <nav class="fixed top-0 left-0 bottom-0 w-64 bg-surface-container-low p-stack-md flex flex-col gap-stack-sm border-r border-border-subtle z-50">
+        <div class="mb-stack-lg px-4 flex justify-between items-center">
+            <div>
+                <h1 class="font-headline-sm text-headline-sm font-bold text-primary">Vanguardia EPIS</h1>
+                <p class="font-label-caps text-[10px] text-on-surface-variant">Gestión de Riesgo</p>
+            </div>
+            <button onclick="toggleMobileSidebar()" class="material-symbols-outlined p-1 hover:bg-surface-container-high rounded-full">close</button>
+        </div>
+        <a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-lg" href="/admin.html">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="font-label-caps text-label-caps">Métricas Globales</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="/monitoreo.html">
+            <span class="material-symbols-outlined">person_search</span>
+            <span class="font-label-caps text-label-caps">Monitoreo</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="/reportes.html">
+            <span class="material-symbols-outlined">history_edu</span>
+            <span class="font-label-caps text-label-caps">Reportes y Planes</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg" href="/estudiantes.html">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-caps text-label-caps">Estudiantes</span>
+        </a>
+        <div class="mt-auto pt-4 border-t border-outline-variant">
+            <a class="flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 rounded-lg" href="/">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-caps text-label-caps text-xs">Cerrar Sesión</span>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- SideNavBar (Desktop) -->
 <aside class="hidden lg:flex fixed left-0 top-16 flex-col h-[calc(100vh-64px)] w-64 p-stack-md gap-stack-sm bg-surface-container-low border-r border-border-subtle">
 <div class="mb-stack-lg px-4">
 <p class="text-on-surface-variant text-[10px] uppercase tracking-widest font-label-caps font-bold">Gestión Institucional</p>
@@ -159,6 +202,10 @@
 <span class="material-symbols-outlined">history_edu</span>
 <span class="font-label-caps text-label-caps">Reportes y Planes</span>
 </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="/estudiantes.html">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-label-caps">Estudiantes</span>
+</a>
 </nav>
 <div class="mt-auto pt-4 border-t border-outline-variant flex flex-col gap-1">
 <a class="flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 rounded-lg transition-colors" href="/">
@@ -170,210 +217,633 @@
 
 <!-- Main Content -->
 <main class="lg:ml-64 pt-24 pb-12 px-gutter max-w-container-max mx-auto">
+<!-- Header Section -->
 <header class="mb-stack-lg">
-<div class="flex justify-between items-end">
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider">Administración</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-primary font-bold">Resumen Institucional</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
 <div>
 <h1 class="font-headline-lg text-headline-lg text-on-surface">Resumen Institucional</h1>
-<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">Control centralizado de riesgos del período lectivo vigente.</p>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">Control centralizado de riesgos y eficiencia de intervenciones pedagógicas del periodo lectivo vigente.</p>
+</div>
+<div class="flex gap-2">
+<button onclick="window.print()" class="flex items-center gap-2 px-4 py-2 border border-border-subtle rounded-lg text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+<span class="text-xs font-label-caps">Imprimir Reporte</span>
+</button>
 </div>
 </div>
 </header>
 
-<!-- Stats globales (dinámicas) -->
-<div id="stats-institucionales" class="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-stack-lg">
-<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-28"></div>
-<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-28"></div>
-<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-28"></div>
-<div class="skeleton bg-surface-container-lowest border border-border-subtle rounded-xl p-6 h-28"></div>
+<!-- Fallback Warning (Shown dynamically if cached responses are used) -->
+<div id="fallback-warning" class="hidden bg-amber-50 border border-risk-medium/20 rounded-xl p-4 mb-stack-lg flex items-center gap-4 shadow-sm">
+<span class="material-symbols-outlined text-risk-medium">wifi_off</span>
+<p class="text-body-md font-body-md text-on-surface">
+<strong>Modo Respaldo Activo:</strong> Algunas explicaciones y recomendaciones se muestran utilizando respuestas previamente validadas.
+</p>
 </div>
 
-<!-- Distribución de riesgo -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-stack-lg">
-<section class="md:col-span-8 bg-surface-container-lowest border border-border-subtle rounded-xl p-stack-md shadow-sm">
-<div class="flex justify-between items-start mb-8">
+<!-- Institutional Metrics Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Global Risk Distribution (Art. III Compliance) -->
+<section class="lg:col-span-8 bg-surface-container-lowest border border-border-subtle rounded-xl p-stack-md shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8">
 <div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Distribución Global de Riesgo</h3>
-<p class="text-body-md font-body-md text-on-surface-variant">Clasificación según Art. III de la Constitución</p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Distribución de Riesgo por Grado</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Análisis comparativo según parámetros del Art. III</p>
 </div>
-<div class="flex gap-4 bg-surface-container-low p-2 rounded-lg">
-<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-risk-high"></div><span class="text-[10px] font-label-caps">Alto</span></div>
-<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-risk-medium"></div><span class="text-[10px] font-label-caps">Medio</span></div>
-<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-risk-low"></div><span class="text-[10px] font-label-caps">Bajo</span></div>
-<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-data-missing"></div><span class="text-[10px] font-label-caps">Insuficiente</span></div>
+<div class="flex flex-wrap gap-3 bg-surface-container-low p-2 rounded-lg text-[10px] font-label-caps">
+<div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-risk-high"></div><span>Crítico (🔴)</span></div>
+<div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-risk-medium"></div><span>Moderado (🟡)</span></div>
+<div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-risk-low"></div><span>Bajo (🟢)</span></div>
+<div class="flex items-center gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-data-missing"></div><span>Insuf. (⚪)</span></div>
 </div>
 </div>
-<!-- Barras de distribución (dinámicas) -->
-<div id="distribucion-barras" class="flex items-end justify-around h-48 gap-4 px-4">
-<div class="text-center text-on-surface-variant text-sm">Cargando...</div>
+<!-- Stacked Bar Chart -->
+<div id="stacked-chart" class="flex items-end justify-between h-64 gap-3 sm:gap-6 px-2 sm:px-4">
+    <!-- Renderizado dinámicamente -->
+    <div class="text-center text-on-surface-variant text-sm w-full py-20">Calculando distribución por grado...</div>
 </div>
 </section>
 
-<section class="md:col-span-4 flex flex-col gap-gutter">
-<div id="card-eficiencia" class="bg-primary text-on-primary rounded-xl p-stack-md relative overflow-hidden flex-1 shadow-md">
+<!-- Efficiency & Performance -->
+<section class="lg:col-span-4 flex flex-col gap-gutter">
+<div class="bg-primary text-on-primary rounded-xl p-stack-md relative overflow-hidden flex-1 shadow-md">
 <div class="absolute -right-4 -top-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-<div class="relative z-10 h-full flex flex-col justify-between">
+<div class="relative z-10 h-full flex flex-col justify-between min-h-[120px]">
 <div>
-<span class="text-[10px] font-label-caps opacity-80 uppercase tracking-widest font-bold">Distribución de Riesgo</span>
-<h4 id="pct-bajo" class="text-4xl font-bold mt-2">—%</h4>
-<div class="flex items-center gap-1 mt-1 text-risk-low">
+<span class="text-[10px] font-label-caps opacity-80 uppercase tracking-widest font-bold">Eficiencia de Intervención</span>
+<h4 id="efficiency-value" class="text-4xl font-bold mt-2">--%</h4>
+<div class="flex items-center gap-1 mt-1 text-risk-low" id="efficiency-trend">
 <span class="material-symbols-outlined text-sm">trending_up</span>
-<span class="text-xs font-bold">estudiantes en nivel bajo</span>
+<span class="text-xs font-bold">Estudiantes sin riesgo</span>
 </div>
 </div>
 <div>
-<p class="text-xs opacity-90 leading-tight">Porcentaje de estudiantes sin señales de riesgo detectadas por el motor de reglas.</p>
+<p class="text-xs opacity-90 leading-tight">Porcentaje de estudiantes evaluados clasificados en riesgo 🟢 Bajo.</p>
 <div class="mt-4 w-full bg-white/20 h-2 rounded-full overflow-hidden">
-<div id="barra-bajo" class="bg-white h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+<div id="efficiency-bar" class="bg-white h-full rounded-full transition-all duration-700" style="width: 0%"></div>
 </div>
 </div>
+</div>
+</div>
+
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-stack-md flex-1 shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Resumen de Alertas</h3>
+<div class="space-y-4 text-sm" id="resumen-alertas-lista">
+    <div class="flex items-center justify-between">
+        <span class="text-on-surface-variant">Riesgo Alto (🔴)</span>
+        <span class="font-bold text-risk-high" id="count-alto">-</span>
+    </div>
+    <div class="flex items-center justify-between">
+        <span class="text-on-surface-variant">Riesgo Medio (🟡)</span>
+        <span class="font-bold text-risk-medium" id="count-medio">-</span>
+    </div>
+    <div class="flex items-center justify-between">
+        <span class="text-on-surface-variant">Riesgo Bajo (🟢)</span>
+        <span class="font-bold text-risk-low" id="count-bajo">-</span>
+    </div>
+    <div class="flex items-center justify-between">
+        <span class="text-on-surface-variant">Dato Insuficiente (⚪)</span>
+        <span class="font-bold text-data-missing" id="count-insuficiente">-</span>
+    </div>
 </div>
 </div>
 </section>
 </div>
 
-<!-- Tabla de alertas críticas -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-<section class="md:col-span-12 bg-surface-container-lowest border border-border-subtle rounded-xl overflow-hidden shadow-sm">
+<!-- Bottom Grid: Alerts & Human Resources -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Institutional Critical Alerts -->
+<section class="lg:col-span-5 bg-surface-container-lowest border border-border-subtle rounded-xl overflow-hidden shadow-sm flex flex-col">
 <div class="p-4 border-b border-border-subtle flex justify-between items-center bg-surface-container-low/30">
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Estudiantes en Riesgo Alto — Requieren Atención</h3>
-<a href="/monitoreo.html" class="text-primary text-sm font-bold hover:underline">Ver todos →</a>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Alertas del Motor</h3>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tighter" id="alerts-status-badge">Urgente</span>
 </div>
-<div id="tabla-alertas" class="overflow-x-auto">
-<div class="p-8 text-center text-on-surface-variant text-sm">Cargando alertas...</div>
+<div class="flex-1 divide-y divide-border-subtle overflow-y-auto max-h-[400px]" id="alertas-gestion-container">
+    <!-- Renderizado dinámicamente -->
+    <div class="p-8 text-center text-on-surface-variant text-xs">Cargando alertas críticas...</div>
+</div>
+<button onclick="window.location.href='/monitoreo.html'" class="w-full py-4 text-center text-primary font-bold text-[10px] font-label-caps border-t border-border-subtle hover:bg-surface-container-low transition-colors uppercase tracking-widest">
+                    Monitorear todos los casos
+                </button>
+</section>
+
+<!-- Human Capital Management -->
+<section class="lg:col-span-7 bg-surface-container-lowest border border-border-subtle rounded-xl overflow-hidden shadow-sm flex flex-col">
+<div class="p-4 border-b border-border-subtle flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-low/30">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Gestión de Plantilla Docente</h3>
+<button onclick="abrirModalDocente()" class="flex items-center gap-2 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-label-caps text-label-caps hover:bg-primary/20 transition-colors whitespace-nowrap text-xs font-bold">
+<span class="material-symbols-outlined text-sm">person_add</span> Registrar Docente
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-muted text-on-surface-variant uppercase text-[10px] font-label-caps border-b border-border-subtle">
+<tr>
+<th class="px-6 py-4 font-bold">Docente / Tutor</th>
+<th class="px-6 py-4 font-bold">Asignación</th>
+<th class="px-6 py-4 font-bold">Tasa Crítica</th>
+<th class="px-6 py-4 font-bold">Estado</th>
+<th class="px-6 py-4 font-bold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle" id="tutors-table-body">
+    <!-- Populado dinámicamente -->
+    <tr>
+        <td colspan="5" class="p-8 text-center text-on-surface-variant text-xs">Cargando plantilla docente...</td>
+    </tr>
+</tbody>
+</table>
 </div>
 </section>
 </div>
 </main>
 
+<!-- Side-Sheet: Admin Detail (Institutional Focus) -->
+<div class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-white border-l border-border-subtle translate-x-full transition-transform duration-300 z-[60] shadow-2xl flex flex-col hidden" id="detailPanel">
+<div class="p-6 border-b border-border-subtle flex justify-between items-center bg-surface-container-low/30">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Auditoría de Desempeño</h2>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest">Perfil de Docente / Tutor</p>
+</div>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors" onclick="togglePanel()">close</button>
+</div>
+<div class="p-8 overflow-y-auto flex-1 space-y-8">
+<div class="flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary-container/20 flex items-center justify-center mb-3 border border-border-subtle">
+    <span class="material-symbols-outlined text-primary text-5xl" id="sheet-tutor-avatar">person</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface" id="sheet-tutor-name">Marta Espinoza</h3>
+<p class="text-primary font-label-caps text-xs font-bold uppercase tracking-widest mt-1" id="sheet-tutor-assignment">Líder de Tutoría 4° B</p>
+</div>
+
+<section>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4 flex items-center gap-2">
+<span class="w-4 h-px bg-primary"></span> MÉTRICAS DE GRADO
+</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl border border-border-subtle">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant">Estudiantes Totales</span>
+<p class="text-2xl font-bold text-on-surface" id="sheet-tutor-total">-</p>
+</div>
+<div class="bg-error-container/10 p-4 rounded-xl border border-error-container">
+<span class="text-[10px] uppercase font-bold text-error">En Riesgo Alto</span>
+<p class="text-2xl font-bold text-error" id="sheet-tutor-critical">-</p>
+</div>
+</div>
+</section>
+
+<section class="bg-primary/5 border border-primary/10 p-5 rounded-2xl">
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined text-lg">psychology</span>
+<h4 class="font-label-caps text-label-caps font-bold">INSIGHT DE IA (ADMIN)</h4>
+</div>
+<p class="text-xs text-on-surface leading-relaxed italic" id="sheet-tutor-insight">
+    Cargando perspectiva analítica del tutor...
+</p>
+</section>
+
+<section>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4 flex items-center gap-2">
+<span class="w-4 h-px bg-primary"></span> ALUMNO CRÍTICO ASIGNADO
+</h4>
+<div class="space-y-3" id="sheet-tutor-student-list">
+    <!-- Rellenado dinámicamente -->
+</div>
+</section>
+</div>
+<div class="p-6 border-t border-border-subtle flex gap-3 bg-surface-container-low/50">
+<button onclick="alert('Se ha enviado una notificación de alerta al correo institucional del tutor.')" class="flex-1 py-3 bg-primary text-on-primary rounded-lg font-bold text-xs font-label-caps hover:opacity-90 transition-opacity">Contactar Tutor</button>
+<button onclick="togglePanel()" class="px-4 py-3 border border-border-subtle rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-xs">close</span>
+</button>
+</div>
+</div>
+
+<!-- Modal Docente -->
+<div id="modalDocente" class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-black/40" onclick="cerrarModalDocente()"></div>
+    <div class="bg-white rounded-2xl border border-border-subtle shadow-2xl w-full max-w-md p-6 relative z-10 space-y-4">
+        <div class="flex justify-between items-center border-b border-border-subtle pb-3 bg-surface-container-low/10">
+            <h3 class="font-bold text-on-surface text-lg" id="modalDocenteTitle">Registrar Docente</h3>
+            <button onclick="cerrarModalDocente()" class="material-symbols-outlined p-1 hover:bg-surface-container-high rounded-full">close</button>
+        </div>
+        <form id="docenteForm" onsubmit="guardarDocente(event)" class="space-y-4 text-xs">
+            <div class="flex flex-col gap-1">
+                <label class="font-semibold text-on-surface-variant uppercase text-[10px]">Nombre Completo</label>
+                <input type="text" id="doc_nombre" required class="border border-outline-variant rounded-lg p-2 text-sm w-full bg-surface-container-lowest focus:ring-1 focus:ring-primary outline-none">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="font-semibold text-on-surface-variant uppercase text-[10px]">Correo Institucional</label>
+                <input type="email" id="doc_email" required class="border border-outline-variant rounded-lg p-2 text-sm w-full bg-surface-container-lowest focus:ring-1 focus:ring-primary outline-none">
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="font-semibold text-on-surface-variant uppercase text-[10px]">Asignación (Ej. Tutoría 4° Sec)</label>
+                <input type="text" id="doc_asignacion" required class="border border-outline-variant rounded-lg p-2 text-sm w-full bg-surface-container-lowest focus:ring-1 focus:ring-primary outline-none">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="font-semibold text-on-surface-variant uppercase text-[10px]">Grado Clave (Asociación)</label>
+                    <select id="doc_grado_clave" required class="border border-outline-variant rounded-lg p-2 text-sm bg-surface-container-lowest focus:ring-1 focus:ring-primary outline-none">
+                        <option value="1ro">1ro de Sec</option>
+                        <option value="2do">2do de Sec</option>
+                        <option value="3ro">3ro de Sec</option>
+                        <option value="4to">4to de Sec</option>
+                        <option value="5to">5to de Sec</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="font-semibold text-on-surface-variant uppercase text-[10px]">Estado</label>
+                    <select id="doc_estado" required class="border border-outline-variant rounded-lg p-2 text-sm bg-surface-container-lowest focus:ring-1 focus:ring-primary outline-none">
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 pt-3 border-t border-border-subtle">
+                <button type="button" onclick="cerrarModalDocente()" class="px-4 py-2 border border-border-subtle rounded-lg text-on-surface hover:bg-surface-container-low transition-colors font-semibold">Cancelar</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-on-primary rounded-lg hover:opacity-95 font-semibold">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
 <script>
 const API_BASE = 'http://localhost:8000';
+let todosLosEstudiantes = [];
+let todosLosDocentes = [];
+let idDocenteEdicion = null;
 
-async function cargarDatos() {
-    const icon = document.getElementById('refresh-icon');
-    if (icon) { icon.style.animation = 'spin 1s linear infinite'; }
+function toggleMobileSidebar() {
+    const sidebar = document.getElementById('mobile-sidebar');
+    sidebar.classList.toggle('hidden');
+}
 
-    try {
-        const [estudiantesResp, statsResp] = await Promise.all([
-            fetch(`${API_BASE}/api/estudiantes`),
-            fetch(`${API_BASE}/api/stats`)
-        ]);
-
-        if (!estudiantesResp.ok || !statsResp.ok) throw new Error('Error en API');
-
-        const estudiantes = await estudiantesResp.json();
-        const stats = await statsResp.json();
-
-        renderStats(stats, estudiantes);
-        renderDistribucion(stats);
-        renderTablaAlertas(estudiantes.filter(e => e.nivel_riesgo === '🔴'));
-
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('stats-institucionales').innerHTML = `
-            <div class="col-span-4 p-6 text-center text-on-surface-variant">
-                <span class="material-symbols-outlined text-3xl block mb-2">cloud_off</span>
-                <p class="text-sm">No se pudo conectar con el backend. Asegúrate de que esté corriendo en localhost:8000.</p>
-                <button onclick="cargarDatos()" class="mt-3 px-4 py-2 bg-primary text-on-primary rounded-lg text-sm font-bold">Reintentar</button>
-            </div>`;
-    } finally {
-        if (icon) icon.style.animation = '';
+function togglePanel() {
+    const panel = document.getElementById('detailPanel');
+    if (panel.classList.contains('translate-x-full')) {
+        panel.classList.remove('hidden');
+        setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+    } else {
+        panel.classList.add('translate-x-full');
+        setTimeout(() => panel.classList.add('hidden'), 300);
     }
 }
 
-function renderStats(stats, estudiantes) {
-    document.getElementById('stats-institucionales').innerHTML = `
-        <div class="bg-surface-container-lowest p-6 border border-border-subtle rounded-xl shadow-sm fade-in">
-            <p class="text-[10px] font-label-caps uppercase tracking-wider text-on-surface-variant mb-2">Total Estudiantes</p>
-            <p class="text-4xl font-extrabold text-on-surface">${stats.total}</p>
-        </div>
-        <div class="bg-surface-container-lowest p-6 border border-border-subtle border-l-4 border-l-risk-high rounded-xl shadow-sm fade-in">
-            <p class="text-[10px] font-label-caps uppercase tracking-wider text-risk-high mb-2">Riesgo Alto</p>
-            <p class="text-4xl font-extrabold text-risk-high">${stats.alto}</p>
-            <p class="text-[10px] text-on-surface-variant">${stats.pct_alto}% del total</p>
-        </div>
-        <div class="bg-surface-container-lowest p-6 border border-border-subtle border-l-4 border-l-risk-medium rounded-xl shadow-sm fade-in">
-            <p class="text-[10px] font-label-caps uppercase tracking-wider text-risk-medium mb-2">Riesgo Medio</p>
-            <p class="text-4xl font-extrabold text-risk-medium">${stats.medio}</p>
-            <p class="text-[10px] text-on-surface-variant">${stats.pct_medio}% del total</p>
-        </div>
-        <div class="bg-surface-container-lowest p-6 border border-border-subtle border-l-4 border-l-risk-low rounded-xl shadow-sm fade-in">
-            <p class="text-[10px] font-label-caps uppercase tracking-wider text-risk-low mb-2">Riesgo Bajo</p>
-            <p class="text-4xl font-extrabold text-risk-low">${stats.bajo}</p>
-            <p class="text-[10px] text-on-surface-variant">${stats.pct_bajo}% del total</p>
-        </div>
-    `;
+// --- Carga dinámica de datos de administrador ---
+async function cargarDatosAdmin(forceRefresh = false) {
+    const refreshIcon = document.getElementById('refresh-icon');
+    const refreshText = document.getElementById('btn-text');
+    if (refreshIcon) refreshIcon.style.animation = 'spin 1s linear infinite';
+    if (refreshText) refreshText.textContent = 'Actualizando...';
 
-    document.getElementById('pct-bajo').textContent = `${stats.pct_bajo}%`;
-    document.getElementById('barra-bajo').style.width = `${stats.pct_bajo}%`;
+    try {
+        const resp = await fetch(`${API_BASE}/api/estudiantes${forceRefresh ? '?force_refresh=true' : ''}`);
+        if (!resp.ok) throw new Error("Error obteniendo datos");
+        todosLosEstudiantes = await resp.json();
+
+        // Mostrar warning de fallback si aplica
+        const hayFallback = todosLosEstudiantes.some(e => e.origen_ia === 'fallback');
+        document.getElementById('fallback-warning').classList.toggle('hidden', !hayFallback);
+
+        procesarMetricasGlobales();
+        dibujarGraficoGrados();
+        cargarAlertasMotor();
+        calcularDocentesRatios();
+
+    } catch (e) {
+        console.error(e);
+        alert("Error cargando métricas: " + e.message);
+    } finally {
+        if (refreshIcon) refreshIcon.style.animation = '';
+        if (refreshText) refreshText.textContent = 'Actualizar Datos';
+    }
 }
 
-function renderDistribucion(stats) {
-    const total = stats.total || 1;
-    const niveles = [
-        { label: '🔴 Alto', count: stats.alto, color: 'bg-risk-high', pct: stats.pct_alto },
-        { label: '🟡 Medio', count: stats.medio, color: 'bg-risk-medium', pct: stats.pct_medio },
-        { label: '🟢 Bajo', count: stats.bajo, color: 'bg-risk-low', pct: stats.pct_bajo },
-        { label: '⚪ Insuf.', count: stats.insuficiente, color: 'bg-data-missing', pct: Math.round(stats.insuficiente/total*100) },
+// --- Procesamiento de métricas generales ---
+function procesarMetricasGlobales() {
+    const total = todosLosEstudiantes.length;
+    const alto = todosLosEstudiantes.filter(e => e.nivel_riesgo === '🔴').length;
+    const medio = todosLosEstudiantes.filter(e => e.nivel_riesgo === '🟡').length;
+    const bajo = todosLosEstudiantes.filter(e => e.nivel_riesgo === '🟢').length;
+    const insuf = todosLosEstudiantes.filter(e => e.nivel_riesgo === '⚪').length;
+
+    document.getElementById('count-alto').textContent = alto;
+    document.getElementById('count-medio').textContent = medio;
+    document.getElementById('count-bajo').textContent = bajo;
+    document.getElementById('count-insuficiente').textContent = insuf;
+
+    // Calcular eficiencia (estudiantes en bajo / total)
+    const pctBajo = total > 0 ? Math.round((bajo / total) * 100) : 0;
+    document.getElementById('efficiency-value').textContent = `${pctBajo}%`;
+    document.getElementById('efficiency-bar').style.width = `${pctBajo}%`;
+}
+
+// --- Dibujar Gráfico Apilado por Grado ---
+function dibujarGraficoGrados() {
+    const grados = [
+        "1ro de secundaria",
+        "2do de secundaria",
+        "3ro de secundaria",
+        "4to de secundaria",
+        "5to de secundaria"
     ];
 
-    document.getElementById('distribucion-barras').innerHTML = niveles.map(n => `
-        <div class="flex flex-col items-center gap-2 flex-1 h-full justify-end">
-            <span class="text-xs font-bold text-on-surface-variant">${n.pct}%</span>
-            <div class="w-full ${n.color} rounded-t-lg transition-all duration-700 fade-in" style="height: ${Math.max(n.pct, 5)}%"></div>
-            <span class="text-[9px] font-label-caps text-on-surface-variant text-center">${n.label}</span>
-            <span class="text-xs font-bold text-on-surface">${n.count}</span>
-        </div>
-    `).join('');
+    const chartContainer = document.getElementById('stacked-chart');
+    chartContainer.innerHTML = '';
+
+    grados.forEach(gradoLabel => {
+        const estsGrado = todosLosEstudiantes.filter(e => e.grado.toLowerCase().includes(gradoLabel.split(' ')[0]));
+        const total = estsGrado.length || 1;
+
+        const alto = estsGrado.filter(e => e.nivel_riesgo === '🔴').length;
+        const medio = estsGrado.filter(e => e.nivel_riesgo === '🟡').length;
+        const bajo = estsGrado.filter(e => e.nivel_riesgo === '🟢').length;
+        const insuf = estsGrado.filter(e => e.nivel_riesgo === '⚪').length;
+
+        // Calcular porcentajes
+        const pctAlto = Math.round((alto / total) * 100);
+        const pctMedio = Math.round((medio / total) * 100);
+        const pctBajo = Math.round((bajo / total) * 100);
+        const pctInsuf = Math.round((insuf / total) * 100);
+
+        const gradoNum = gradoLabel.split(' ')[0];
+
+        const barHtml = `
+        <div class="flex-1 flex flex-col items-center gap-3 h-full justify-end fade-in">
+            <div class="w-full flex flex-col-reverse h-full rounded-t-lg overflow-hidden bg-slate-100 border border-border-subtle/50">
+                <div class="bg-risk-low w-full hover:brightness-105 chart-bar" style="height: ${pctBajo}%" title="Bajo: ${pctBajo}% (${bajo} est.)"></div>
+                <div class="bg-risk-medium w-full hover:brightness-105 chart-bar" style="height: ${pctMedio}%" title="Medio: ${pctMedio}% (${medio} est.)"></div>
+                <div class="bg-risk-high w-full hover:brightness-105 chart-bar" style="height: ${pctAlto}%" title="Alto: ${pctAlto}% (${alto} est.)"></div>
+                <div class="bg-data-missing w-full hover:brightness-105 chart-bar" style="height: ${pctInsuf}%" title="Insuficiente: ${pctInsuf}% (${insuf} est.)"></div>
+            </div>
+            <span class="text-[9px] sm:text-[10px] font-label-caps text-on-surface-variant font-bold whitespace-nowrap">${gradoNum} Grado</span>
+        </div>`;
+        
+        chartContainer.innerHTML += barHtml;
+    });
+
+    // Reactivar tooltips
+    document.querySelectorAll('.chart-bar').forEach(bar => {
+        bar.addEventListener('mouseenter', () => bar.classList.add('brightness-110'));
+        bar.addEventListener('mouseleave', () => bar.classList.remove('brightness-110'));
+    });
 }
 
-function renderTablaAlertas(estudiantesAlto) {
-    if (estudiantesAlto.length === 0) {
-        document.getElementById('tabla-alertas').innerHTML = `
-            <div class="p-8 text-center text-risk-low">
-                <span class="material-symbols-outlined text-3xl block mb-2">check_circle</span>
-                <p class="text-sm font-medium">¡Sin alertas críticas! Ningún estudiante está en riesgo alto actualmente.</p>
+// --- Cargar Alertas del Motor ---
+function cargarAlertasMotor() {
+    const container = document.getElementById('alertas-gestion-container');
+    const badge = document.getElementById('alerts-status-badge');
+
+    const criticos = todosLosEstudiantes.filter(e => e.nivel_riesgo === '🔴');
+    
+    if (criticos.length === 0) {
+        badge.className = "bg-green-100 text-risk-low px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tighter";
+        badge.textContent = "Estable";
+        container.innerHTML = `
+            <div class="p-8 text-center text-risk-low text-xs font-semibold">
+                <span class="material-symbols-outlined text-2xl block mb-1">check_circle</span>
+                Sin alertas críticas pendientes.
             </div>`;
         return;
     }
 
-    document.getElementById('tabla-alertas').innerHTML = `
-        <table class="w-full text-left">
-            <thead class="bg-surface-muted">
-                <tr>
-                    <th class="px-6 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant">Estudiante</th>
-                    <th class="px-6 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant">Motivo Principal</th>
-                    <th class="px-6 py-3 text-[10px] font-label-caps uppercase text-on-surface-variant text-right">Acción</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-border-subtle">
-                ${estudiantesAlto.map(e => `
-                    <tr class="hover:bg-surface-muted/50 transition-colors">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-red-100 text-risk-high flex items-center justify-center font-bold text-xs">
-                                    ${e.nombre.split(' ').slice(0,2).map(n=>n[0]).join('').toUpperCase()}
-                                </div>
-                                <div>
-                                    <p class="font-bold text-sm text-on-surface">${e.nombre}</p>
-                                    <p class="text-[10px] text-on-surface-variant">${e.grado}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 text-xs text-on-surface-variant italic">${e.motivos[0] || '—'}</td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="/monitoreo.html" class="px-3 py-1.5 bg-primary text-on-primary rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Ver detalle</a>
-                        </td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>`;
+    badge.className = "bg-error-container text-on-error-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tighter";
+    badge.textContent = "Crítico";
+
+    container.innerHTML = criticos.map(est => {
+        const motivoCorto = est.motivos[0] || 'Señal de riesgo no definida';
+        return `
+        <div class="p-4 hover:bg-surface-container-low transition-colors cursor-pointer group" onclick="window.location.href='/monitoreo.html?id=${est.id}'">
+            <div class="flex items-start gap-3">
+                <div class="w-1.5 h-12 bg-risk-high rounded-full flex-shrink-0"></div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-xs text-on-surface group-hover:text-primary transition-colors truncate pr-2">${est.nombre}</span>
+                        <span class="text-[9px] text-on-surface-variant font-label-caps flex-shrink-0">${est.id}</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant truncate">${est.grado} • ${motivoCorto.replace(/🔴/g, '').trim()}</p>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
 }
 
-// Keyframes
+// --- Cargar y Calcular Docentes ---
+async function cargarDocentes() {
+    try {
+        const resp = await fetch(`${API_BASE}/api/docentes`);
+        if (!resp.ok) throw new Error("Error obteniendo docentes");
+        todosLosDocentes = await resp.json();
+        
+        renderTutorsTable();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function renderTutorsTable() {
+    const tbody = document.getElementById('tutors-table-body');
+    if (!todosLosDocentes.length) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="p-8 text-center text-on-surface-variant text-xs">No hay docentes registrados.</td>
+            </tr>`;
+        return;
+    }
+
+    tbody.innerHTML = todosLosDocentes.map(tutor => {
+        // Filtrar estudiantes de su grado asignado (grado_clave)
+        const estsTutor = todosLosEstudiantes.filter(e => e.grado.toLowerCase().includes(tutor.grado_clave.toLowerCase()));
+        const criticos = estsTutor.filter(e => e.nivel_riesgo === '🔴').length;
+        const total = estsTutor.length || 1;
+        const pctCritico = Math.round((criticos / total) * 100);
+
+        // Estilo del badge de estado
+        const badgeClass = tutor.estado === 'Activo' ? 'bg-risk-low/10 text-risk-low' : 'bg-slate-100 text-slate-500';
+        const dotClass = tutor.estado === 'Activo' ? 'bg-risk-low' : 'bg-slate-400';
+
+        return `
+        <tr class="hover:bg-surface-muted/50 transition-colors group">
+            <td class="px-6 py-4 cursor-pointer" onclick="openTutorDetails('${tutor.id}')">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-primary-container/10 flex items-center justify-center overflow-hidden border border-border-subtle">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-body-md text-on-surface group-hover:text-primary transition-colors">${tutor.nombre}</div>
+                        <div class="text-[10px] text-on-surface-variant">${tutor.email}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4 text-xs font-medium text-on-surface">${tutor.asignacion}</td>
+            <td class="px-6 py-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-bold w-4">${criticos}</span>
+                    <div class="w-20 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+                        <div class="bg-risk-high h-full" style="width: ${pctCritico}%"></div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4">
+                <span class="inline-flex items-center gap-1.5 ${badgeClass} px-2 py-0.5 rounded-full text-[10px] font-bold uppercase">
+                    <span class="w-1.5 h-1.5 rounded-full ${dotClass}"></span> ${tutor.estado}
+                </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+                <div class="flex items-center justify-end gap-1">
+                    <button class="p-1 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-colors" onclick="abrirModalDocente('${tutor.id}', event)" title="Editar">
+                        <span class="material-symbols-outlined text-sm">edit</span>
+                    </button>
+                    <button class="p-1 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded transition-colors" onclick="eliminarDocente('${tutor.id}', event)" title="Eliminar">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                    <button class="p-1 text-primary hover:bg-primary/10 rounded transition-colors" onclick="openTutorDetails('${tutor.id}')" title="Ver Ficha">
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+// --- Side-sheet de Docente ---
+function openTutorDetails(id) {
+    togglePanel();
+
+    const tutor = todosLosDocentes.find(d => d.id === id);
+    if (!tutor) return;
+
+    const nameEl = document.getElementById('sheet-tutor-name');
+    const assignEl = document.getElementById('sheet-tutor-assignment');
+    const totalEl = document.getElementById('sheet-tutor-total');
+    const criticalEl = document.getElementById('sheet-tutor-critical');
+    const insightEl = document.getElementById('sheet-tutor-insight');
+    const studentListEl = document.getElementById('sheet-tutor-student-list');
+
+    nameEl.textContent = tutor.nombre;
+    assignEl.textContent = tutor.asignacion;
+
+    const ests = todosLosEstudiantes.filter(e => e.grado.toLowerCase().includes(tutor.grado_clave.toLowerCase()));
+    const criticos = ests.filter(e => e.nivel_riesgo === '🔴');
+
+    totalEl.textContent = ests.length;
+    criticalEl.textContent = criticos.length;
+
+    // Insight de IA simulado basado en sus datos reales
+    const pctResolucion = ests.length > 0 ? Math.round(((ests.length - criticos.length) / ests.length) * 100) : 100;
+    insightEl.textContent = `"El/La docente ${tutor.nombre} gestiona un total de ${ests.length} estudiantes en el grado ${tutor.grado_clave}. Actualmente mantiene un índice del ${pctResolucion}% de estudiantes controlados fuera del nivel crítico, mitigando riesgos de deserción escolar de manera activa."`;
+
+    if (criticos.length === 0) {
+        studentListEl.innerHTML = `<p class="text-xs text-risk-low font-semibold p-2">Sin alumnos en riesgo crítico asignados.</p>`;
+    } else {
+        studentListEl.innerHTML = criticos.map(e => `
+            <div class="flex items-center justify-between text-xs p-3 bg-surface-container-low rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer" onclick="window.location.href='/monitoreo.html?id=${e.id}'">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-risk-high text-sm">warning</span>
+                    <span class="font-medium">${e.nombre}</span>
+                </div>
+                <span class="text-[9px] bg-red-100 text-risk-high font-bold px-1.5 py-0.5 rounded">${e.id}</span>
+            </div>
+        `).join('');
+    }
+}
+
+// --- Gestión de Modal de Docentes ---
+function abrirModalDocente(id = null, event = null) {
+    if (event) event.stopPropagation();
+
+    const titleEl = document.getElementById('modalDocenteTitle');
+    const form = document.getElementById('docenteForm');
+    form.reset();
+
+    if (id) {
+        idDocenteEdicion = id;
+        titleEl.textContent = "Editar Docente";
+        const tutor = todosLosDocentes.find(d => d.id === id);
+        if (tutor) {
+            document.getElementById('doc_nombre').value = tutor.nombre;
+            document.getElementById('doc_email').value = tutor.email;
+            document.getElementById('doc_asignacion').value = tutor.asignacion;
+            document.getElementById('doc_grado_clave').value = tutor.grado_clave;
+            document.getElementById('doc_estado').value = tutor.estado;
+        }
+    } else {
+        idDocenteEdicion = null;
+        titleEl.textContent = "Registrar Docente";
+    }
+
+    const modal = document.getElementById('modalDocente');
+    modal.classList.remove('hidden');
+}
+
+function cerrarModalDocente() {
+    const modal = document.getElementById('modalDocente');
+    modal.classList.add('hidden');
+}
+
+async function guardarDocente(event) {
+    event.preventDefault();
+
+    const payload = {
+        id: idDocenteEdicion,
+        nombre: document.getElementById('doc_nombre').value,
+        email: document.getElementById('doc_email').value,
+        asignacion: document.getElementById('doc_asignacion').value,
+        grado_clave: document.getElementById('doc_grado_clave').value,
+        estado: document.getElementById('doc_estado').value
+    };
+
+    try {
+        const resp = await fetch(`${API_BASE}/api/docentes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!resp.ok) throw new Error("Error al guardar docente");
+
+        cerrarModalDocente();
+        cargarDocentes();
+    } catch (e) {
+        console.error(e);
+        alert("Ocurrió un error al guardar: " + e.message);
+    }
+}
+
+async function eliminarDocente(id, event) {
+    if (event) event.stopPropagation();
+
+    if (!confirm("¿Está seguro de que desea eliminar a este docente de la plantilla?")) return;
+
+    try {
+        const resp = await fetch(`${API_BASE}/api/docentes/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!resp.ok) throw new Error("Error al eliminar docente");
+
+        cargarDocentes();
+    } catch (e) {
+        console.error(e);
+        alert("Ocurrió un error al eliminar: " + e.message);
+    }
+}
+
+// --- Init ---
+document.addEventListener('DOMContentLoaded', async () => {
+    await cargarDatosAdmin();
+    await cargarDocentes();
+});
+
+// Keyframes del spiner
 const style = document.createElement('style');
 style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
 document.head.appendChild(style);
-
-document.addEventListener('DOMContentLoaded', cargarDatos);
 </script>
 </body></html>

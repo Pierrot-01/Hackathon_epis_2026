@@ -30,6 +30,7 @@ from ia_client import generar_explicacion
 # --- Rutas ---
 BASE_DIR = Path(__file__).parent.parent
 DATA_PATH = BASE_DIR / "data" / "estudiantes.json"
+DOCENTES_PATH = BASE_DIR / "data" / "docentes.json"
 FRONTEND_DIR = BASE_DIR / "frontend"
 
 # --- App ---
@@ -67,6 +68,32 @@ class EstudianteResultado(BaseModel):
     lengua_materna: Optional[str]
     observaciones: Optional[str]
 
+class EstudianteInput(BaseModel):
+    id: Optional[str] = None
+    nombre: str
+    grado: str
+    asistencia_pct: Optional[float] = None
+    notas_promedio: Optional[float] = None
+    participacion: Optional[str] = None
+    lengua_materna: Optional[str] = "castellano"
+    observaciones: Optional[str] = None
+
+class DocenteResultado(BaseModel):
+    id: str
+    nombre: str
+    email: str
+    asignacion: str
+    grado_clave: str
+    estado: str
+
+class DocenteInput(BaseModel):
+    id: Optional[str] = None
+    nombre: str
+    email: str
+    asignacion: str
+    grado_clave: str
+    estado: str = "Activo"
+
 
 # --- Cache en memoria por sesión (evita llamadas repetidas a la API durante la demo) ---
 _resultados_cache: dict[str, EstudianteResultado] = {}
@@ -78,6 +105,16 @@ def cargar_dataset() -> list[dict]:
         raise FileNotFoundError(f"Dataset no encontrado en {DATA_PATH}")
 
     with open(DATA_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def cargar_docentes() -> list[dict]:
+    """Carga y valida el dataset de docentes."""
+    if not DOCENTES_PATH.exists():
+        with open(DOCENTES_PATH, "w", encoding="utf-8") as f:
+            json.dump([], f)
+        return []
+    with open(DOCENTES_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -202,6 +239,153 @@ async def estadisticas():
         "pct_medio": round(medio / total * 100, 1) if total > 0 else 0,
         "pct_bajo": round(bajo / total * 100, 1) if total > 0 else 0,
     }
+
+
+@app.post("/api/estudiantes", response_model=EstudianteResultado)
+async def guardar_estudiante(est_in: EstudianteInput):
+    global _resultados_cache
+
+    dataset = cargar_dataset()
+
+    if est_in.id:
+        # Modo Edición
+        idx = next((i for i, e in enumerate(dataset) if e["id"] == est_in.id), None)
+        if idx is None:
+            raise HTTPException(status_code=404, detail="Estudiante no encontrado")
+        
+        # Actualizar datos
+        estudiante_actualizado = {
+            "id": est_in.id,
+            "nombre": est_in.nombre,
+            "grado": est_in.grado,
+            "asistencia_pct": est_in.asistencia_pct,
+            "notas_promedio": est_in.notas_promedio,
+            "participacion": est_in.participacion,
+            "lengua_materna": est_in.lengua_materna or dataset[idx].get("lengua_materna", "castellano"),
+            "observaciones": est_in.observaciones or dataset[idx].get("observaciones"),
+        }
+        dataset[idx] = estudiante_actualizado
+    else:
+        # Modo Creación - Generar ID auto-incremental
+        import re
+        max_num = 0
+        for e in dataset:
+            match = re.match(r"EST-(\d+)", e["id"])
+            if match:
+                max_num = max(max_num, int(match.group(1)))
+        nuevo_id = f"EST-{max_num + 1:03d}"
+        
+        estudiante_actualizado = {
+            "id": nuevo_id,
+            "nombre": est_in.nombre,
+            "grado": est_in.grado,
+            "asistencia_pct": est_in.asistencia_pct,
+            "notas_promedio": est_in.notas_promedio,
+            "participacion": est_in.participacion,
+            "lengua_materna": est_in.lengua_materna or "castellano",
+            "observaciones": est_in.observaciones,
+        }
+        dataset.append(estudiante_actualizado)
+        
+    # Guardar en archivo
+    with open(DATA_PATH, "w", encoding="utf-8") as f:
+        json.dump(dataset, f, ensure_ascii=False, indent=2)
+        
+    # Procesar y actualizar en cache de memoria
+    resultado = await procesar_estudiante(estudiante_actualizado)
+    _resultados_cache[resultado.id] = resultado
+    
+    return resultado
+
+
+@app.delete("/api/estudiantes/{id_estudiante}")
+async def eliminar_estudiante(id_estudiante: str):
+    global _resultados_cache
+    
+    dataset = cargar_dataset()
+    idx = next((i for i, e in enumerate(dataset) if e["id"] == id_estudiante), None)
+    
+    if idx is None:
+        raise HTTPException(status_code=404, detail="Estudiante no encontrado")
+        
+    del dataset[idx]
+    
+    with open(DATA_PATH, "w", encoding="utf-8") as f:
+        json.dump(dataset, f, ensure_ascii=False, indent=2)
+        
+    if id_estudiante in _resultados_cache:
+        del _resultados_cache[id_estudiante]
+        
+    return {"status": "success", "message": f"Estudiante {id_estudiante} eliminado"}
+
+
+@app.get("/api/docentes", response_model=list[DocenteResultado])
+def listar_docentes():
+    """Retorna la lista de docentes registrados."""
+    return cargar_docentes()
+
+
+@app.post("/api/docentes", response_model=DocenteResultado)
+def guardar_docente(doc_in: DocenteInput):
+    """Crea o edita un docente en el dataset."""
+    docentes = cargar_docentes()
+    
+    if doc_in.id:
+        # Edición
+        idx = next((i for i, d in enumerate(docentes) if d["id"] == doc_in.id), None)
+        if idx is None:
+            raise HTTPException(status_code=404, detail="Docente no encontrado")
+        
+        docente_actualizado = {
+            "id": doc_in.id,
+            "nombre": doc_in.nombre,
+            "email": doc_in.email,
+            "asignacion": doc_in.asignacion,
+            "grado_clave": doc_in.grado_clave,
+            "estado": doc_in.estado
+        }
+        docentes[idx] = docente_actualizado
+    else:
+        # Creación
+        import re
+        max_num = 0
+        for d in docentes:
+            match = re.match(r"DOC-(\d+)", d["id"])
+            if match:
+                max_num = max(max_num, int(match.group(1)))
+        nuevo_id = f"DOC-{max_num + 1:03d}"
+        
+        docente_actualizado = {
+            "id": nuevo_id,
+            "nombre": doc_in.nombre,
+            "email": doc_in.email,
+            "asignacion": doc_in.asignacion,
+            "grado_clave": doc_in.grado_clave,
+            "estado": doc_in.estado
+        }
+        docentes.append(docente_actualizado)
+        
+    with open(DOCENTES_PATH, "w", encoding="utf-8") as f:
+        json.dump(docentes, f, ensure_ascii=False, indent=2)
+        
+    return docente_actualizado
+
+
+@app.delete("/api/docentes/{id_docente}")
+def eliminar_docente(id_docente: str):
+    """Elimina un docente del dataset."""
+    docentes = cargar_docentes()
+    idx = next((i for i, d in enumerate(docentes) if d["id"] == id_docente), None)
+    
+    if idx is None:
+        raise HTTPException(status_code=404, detail="Docente no encontrado")
+        
+    del docentes[idx]
+    
+    with open(DOCENTES_PATH, "w", encoding="utf-8") as f:
+        json.dump(docentes, f, ensure_ascii=False, indent=2)
+        
+    return {"status": "success", "message": f"Docente {id_docente} eliminado"}
 
 
 # --- Servir el frontend como archivos estáticos ---

@@ -247,10 +247,15 @@
 </form>
 <!-- Contextual Help / Info -->
 <div class="mt-8 pt-6 border-t border-outline-variant text-center">
-<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]" data-icon="info">info</span>
-                Acceso restringido a personal educativo autorizado.
-            </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex flex-col items-center justify-center gap-1">
+    <span class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[18px]" data-icon="info">info</span>
+        Acceso restringido a personal autorizado.
+    </span>
+    <span class="text-[11px] text-outline mt-1">
+        Admin: <code class="bg-surface-container-low px-1 rounded">admin@escuela.edu.pe</code> | Docente: <code class="bg-surface-container-low px-1 rounded">docente@escuela.edu.pe</code>
+    </span>
+</p>
 </div>
 </div>
 <script>
@@ -263,9 +268,15 @@
             btn.classList.add('opacity-80', 'cursor-not-allowed');
             btn.disabled = true;
 
-            // Credenciales de demo (sin autenticación real — Art. VII §7.2)
+            const email = document.getElementById('email').value;
+
+            // Redirección por rol (Art. VII §7.2)
             setTimeout(() => {
-                window.location.href = '/monitoreo.html';
+                if (email.toLowerCase().includes('admin')) {
+                    window.location.href = '/admin.html';
+                } else {
+                    window.location.href = '/monitoreo.html';
+                }
             }, 800);
         });
     </script>
